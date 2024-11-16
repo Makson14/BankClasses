@@ -1,0 +1,15 @@
+D:\Projects\Сишарп\BankClasses\bin\Debug\BankClasses.exe.config
+D:\Projects\Сишарп\BankClasses\bin\Debug\BankClasses.exe
+D:\Projects\Сишарп\BankClasses\bin\Debug\BankClasses.pdb
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.csproj.AssemblyReference.cache
+D:\Projects\Сишарп\BankClasses\obj\Debug\MainWindow.g.cs
+D:\Projects\Сишарп\BankClasses\obj\Debug\App.g.cs
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses_MarkupCompile.cache
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses_MarkupCompile.lref
+D:\Projects\Сишарп\BankClasses\obj\Debug\MainWindow.baml
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.g.resources
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.Properties.Resources.resources
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.csproj.GenerateResource.cache
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.csproj.CoreCompileInputs.cache
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.exe
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.pdb
