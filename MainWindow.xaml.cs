@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,354 @@ namespace BankClasses
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private Classes.BankAccount Account1;
+        private Classes.BankAccount Account2;
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            datarojd1.SelectedDateFormat = DatePickerFormat.Long;
+            datarojd1.FirstDayOfWeek = DayOfWeek.Sunday;
+            datarojd1.DisplayDateEnd = DateTime.Now;
+            datarojd1.DisplayDateStart = new DateTime(1904, 01, 01);
+            datarojd2.SelectedDateFormat = DatePickerFormat.Long;
+            datarojd2.FirstDayOfWeek = DayOfWeek.Sunday;
+            datarojd2.DisplayDateEnd = DateTime.Now;
+            datarojd2.DisplayDateStart = new DateTime(1904, 01, 01);
+        }
+
+        private void Reg1_Click(object sender, RoutedEventArgs e)
+        {
+            string FIO = FIOtb1.Text;
+            string pass = PASStb1.Text;
+            if (string.IsNullOrWhiteSpace(FIO) || FIO.Split(' ').Length < 2)
+            {
+                MessageBox.Show("Пожалуйста, введите корректное ФИО (фамилия и имя).");
+                return;
+            }
+            if (string.IsNullOrEmpty(pass) || pass.Length != 10 || !pass.All(char.IsDigit))
+            {
+                MessageBox.Show("Номер паспорта должен состоять из 10 цифр.");
+                return;
+            }
+            DateTime open = DateTime.Now;
+            if (datarojd1.SelectedDate == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите дату рождения.");
+                return;
+            }
+            DateTime rojd = Convert.ToDateTime(datarojd1.SelectedDate).Date;
+            Random random = new Random();
+            int firstPart = random.Next(1, 10);
+            string Number = firstPart.ToString();
+            for (int i = 1; i < 12; i++)
+            {
+                Number += random.Next(0, 10);
+            }
+            decimal Bal = 0;
+            try
+            {
+                Classes.Client Client1 = new Classes.Client(FIO, pass, rojd);
+                Account1 = new Classes.BankAccount(Number, open, Client1, Bal, open);
+                Account1.EndDate(open);
+                TbVivod1.Text = Account1.BankOut();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка: {ex.Message}");
+            }
+        }
+
+        private void Open2_Click(object sender, RoutedEventArgs e)
+        {
+            string FIO = FIOtb2.Text;
+            string pass = PASStb2.Text;
+            if (string.IsNullOrWhiteSpace(FIO) || FIO.Split(' ').Length < 2)
+            {
+                MessageBox.Show("Пожалуйста, введите корректное ФИО (фамилия и имя).");
+                return;
+            }
+            if (string.IsNullOrEmpty(pass) || pass.Length != 10 || !pass.All(char.IsDigit))
+            {
+                MessageBox.Show("Номер паспорта должен состоять из 10 цифр.");
+                return;
+            }
+
+            DateTime open = DateTime.Now;
+            if (datarojd2.SelectedDate == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите дату рождения.");
+                return;
+            }
+            DateTime rojd = Convert.ToDateTime(datarojd2.SelectedDate).Date;
+            Random random = new Random();
+            int firstPart = random.Next(1, 10);
+            string Number = firstPart.ToString();
+            for (int i = 1; i < 12; i++)
+            {
+                Number += random.Next(0, 10);
+            }
+            decimal Bal = 0;
+            try
+            {
+                Classes.Client Client2 = new Classes.Client(FIO, pass, rojd);
+                Account2 = new Classes.BankAccount(Number, open, Client2, Bal, open);
+                Account2.EndDate(open);
+                TbVivod2.Text = Account2.BankOut();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка: {ex.Message}");
+            }
+        }
+        private void Add1_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account1 != null)
+            {
+                decimal amount;
+                if (decimal.TryParse(add1.Text, out amount)) 
+                {
+                    try
+                    {
+                        Account1.Deposit(amount);
+                        TbVivod1.Text = Account1.BankOut();
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите правильную сумму.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Счет еще не создан.");
+            }
+        }
+
+        private void Sub1_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account1 != null)
+            {
+                decimal amount;
+                if (decimal.TryParse(add1.Text, out amount))
+                {
+                    try
+                    {
+                        Account1.Withdraw(amount);
+                        TbVivod1.Text = Account1.BankOut();
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите правильную сумму.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Счет еще не создан.");
+            }
+        }
+
+        private void Clear1_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account1 != null)
+            {
+                    try
+                    {
+                        Account1.Nullifier();
+                        TbVivod1.Text = Account1.BankOut();
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+            }
+            else
+            {
+                MessageBox.Show("Счет еще не создан.");
+            }
+        }
+
+        private void Trans1_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account1 != null && Account2 != null)
+            {
+                decimal amount;
+                if (decimal.TryParse(add1.Text, out amount) && amount > 0)
+                {
+                    try
+                    {
+                        if (Account1.Transfer(amount, Account2))
+                        {
+                            MessageBox.Show("Перевод успешно выполнен.");
+                            TbVivod1.Text = Account1.BankOut(); 
+                            TbVivod2.Text = Account2.BankOut(); 
+                        }
+                        else
+                        {
+                            MessageBox.Show("Недостаточно средств для перевода.");
+                        }
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        MessageBox.Show($"Ошибка при выполнении перевода: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректную сумму для перевода.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Один или оба счета не созданы.");
+            }
+        }
+
+        private void Add2_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account2 != null)
+            {
+                decimal amount;
+                if (decimal.TryParse(add2.Text, out amount))
+                {
+                    try
+                    {
+                        Account2.Deposit(amount);
+                        TbVivod2.Text = Account2.BankOut();
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите правильную сумму.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Счет еще не создан.");
+            }
+        }
+
+        private void Sub2_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account2 != null)
+            {
+                decimal amount;
+                if (decimal.TryParse(add2.Text, out amount))
+                {
+                    try
+                    {
+                        Account2.Withdraw(amount);
+                        TbVivod2.Text = Account2.BankOut();
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите правильную сумму.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Счет еще не создан.");
+            }
+        }
+
+        private void Clear2_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account2 != null)
+            {
+                try
+                {
+                    Account2.Nullifier();
+                    TbVivod2.Text = Account2.BankOut();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Счет еще не создан.");
+            }
+        }
+
+        private void Trans2_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account1 != null && Account2 != null)
+            {
+                decimal amount;
+                if (decimal.TryParse(add2.Text, out amount) && amount > 0)
+                {
+                    try
+                    {
+                        if (Account2.Transfer(amount, Account1))
+                        {
+                            MessageBox.Show("Перевод успешно выполнен.");
+                            TbVivod1.Text = Account1.BankOut();
+                            TbVivod2.Text = Account2.BankOut();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Недостаточно средств для перевода.");
+                        }
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        MessageBox.Show($"Ошибка при выполнении перевода: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректную сумму для перевода.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Один или оба счета не созданы.");
+            }
+        }
+
+        private void Close2_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account2 != null)
+            {
+                Account2.CloseStatus();
+                TbVivod2.Text = Account2.BankOut();
+            }
+            else
+            {
+                MessageBox.Show("Счет еще не создан.");
+            }
+        }
+
+        private void Close1_Click(object sender, RoutedEventArgs e)
+        {
+            if (Account1 != null)
+            {
+                Account1.CloseStatus();
+                TbVivod1.Text = Account1.BankOut(); 
+            }
+            else
+            {
+                MessageBox.Show("Счет еще не создан.");
+            }
         }
     }
 }
