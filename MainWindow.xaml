@@ -32,7 +32,7 @@
         <Label Grid.Row="5" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">Выберите дату рождения</Label>
         <Label Grid.Row="6" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">Сумма изменения баланса/перевода</Label>
         <TextBox Grid.Row="2" FontSize="25" Margin="2px" Name="FIOtb1"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" FontSize="25" Margin="2px" Name="FIOtb2"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" FontSize="25" Margin="2px" Name="FIOtb2" ></TextBox>
         <TextBox Grid.Row="4" FontSize="25" Margin="2px" Name="PASStb1"></TextBox>
         <TextBox Grid.Row="4" Grid.Column="1" FontSize="25" Margin="2px" Name="PASStb2"></TextBox>
         <TextBox Grid.Row="7" FontSize="20px" Margin="10px" Name="add1" ></TextBox>
@@ -51,5 +51,6 @@
         <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Name="Trans2" Click="Trans2_Click">Перевести</Button>
         <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Name="Open2" Click="Open2_Click">Открыть счёт</Button>
         <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Close2" Click="Close2_Click">Закрыть счёт</Button>
+        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="equal" Click="equal_Click">Сравнить счета</Button>
     </Grid>
 </Window>

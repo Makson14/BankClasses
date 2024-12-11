@@ -46,16 +46,19 @@ namespace BankClasses.Classes
         {
             Status = "Закрыт";
             IsClosed = true;
+            Balance = 0;
         }
 
-        public void Deposit(decimal amount)
+        public static BankAccount operator +(BankAccount account, decimal amount)
         {
-            if (IsClosed)
+            if (account.IsClosed)
             {
                 throw new InvalidOperationException("Операция невозможна, так как счет закрыт.");
             } else
-            Balance += amount;
+            account.Balance += amount;
+            return account;
         }
+
         public void Nullifier()
         {
             if (IsClosed)
@@ -64,32 +67,58 @@ namespace BankClasses.Classes
             } else
             Balance = 0;
         }
-        public bool Withdraw(decimal amount)
+        public static BankAccount operator -(BankAccount account, decimal amount)
         {
-            if (IsClosed)
-            {
+            if (account.IsClosed)
                 throw new InvalidOperationException("Операция невозможна, так как счет закрыт.");
-            } else
-            if (amount <= Balance)
-            {
-                Balance -= amount;
-                return true;
-            }
-            return false;
+
+            if (amount > account.Balance)
+                throw new InvalidOperationException("Недостаточно средств на счете.");
+
+            account.Balance -= amount;
+            return account;
+        }
+        public static bool operator ==(BankAccount Account1, BankAccount Account2)
+        {
+            return Account1.Balance == Account2.Balance;
+        }
+        public static bool operator ==(BankAccount account, object obj)
+        {
+            // Если один из объектов null, проверяем другой
+            if (ReferenceEquals(account, null))
+                return ReferenceEquals(obj, null);
+
+            return account.Equals(obj);
         }
 
-        public bool Transfer(decimal amount, BankAccount targetAccount)
+        public static bool operator !=(BankAccount Account1, BankAccount Account2)
         {
-            if (IsClosed)
+            return Account1.Balance != Account2.Balance;
+        }
+        public static bool operator !=(BankAccount account, object obj)
+        {
+            return !(account == obj);
+        }
+        public static BankAccount operator -(BankAccount sourceAccount, (decimal amount, BankAccount targetAccount) transferData)
+        {
+            if (sourceAccount.IsClosed)
             {
-                throw new InvalidOperationException("Операция невозможна, так как счет закрыт.");
-            } else
-            if (Withdraw(amount))
-            {
-                targetAccount.Deposit(amount);
-                return true;
+                throw new InvalidOperationException("Операция невозможна, так как счет отправителя закрыт.");
             }
-            return false;
+
+            if (transferData.targetAccount.IsClosed)
+            {
+                throw new InvalidOperationException("Операция невозможна, так как счет получателя закрыт.");
+            }
+
+            if (sourceAccount.Balance < transferData.amount)
+            {
+                throw new InvalidOperationException("Недостаточно средств на счете отправителя.");
+            }
+            sourceAccount.Balance -= transferData.amount;
+            transferData.targetAccount.Balance += transferData.amount;
+
+            return sourceAccount;
         }
         public string BankOut()
         {

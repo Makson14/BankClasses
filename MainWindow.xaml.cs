@@ -126,14 +126,14 @@ namespace BankClasses
         }
         private void Add1_Click(object sender, RoutedEventArgs e)
         {
-            if (Account1 != null)
+            if (ReferenceEquals(Account1, null) == false)
             {
                 decimal amount;
                 if (decimal.TryParse(add1.Text, out amount)) 
                 {
                     try
                     {
-                        Account1.Deposit(amount);
+                        Account1 += amount;
                         TbVivod1.Text = Account1.BankOut();
                     }
                     catch (InvalidOperationException ex)
@@ -154,14 +154,14 @@ namespace BankClasses
 
         private void Sub1_Click(object sender, RoutedEventArgs e)
         {
-            if (Account1 != null)
+            if (ReferenceEquals(Account1, null) == false)
             {
                 decimal amount;
                 if (decimal.TryParse(add1.Text, out amount))
                 {
                     try
                     {
-                        Account1.Withdraw(amount);
+                        Account1 -= amount;
                         TbVivod1.Text = Account1.BankOut();
                     }
                     catch (InvalidOperationException ex)
@@ -182,7 +182,7 @@ namespace BankClasses
 
         private void Clear1_Click(object sender, RoutedEventArgs e)
         {
-            if (Account1 != null)
+            if(ReferenceEquals(Account1, null) == false)
             {
                     try
                     {
@@ -202,23 +202,16 @@ namespace BankClasses
 
         private void Trans1_Click(object sender, RoutedEventArgs e)
         {
-            if (Account1 != null && Account2 != null)
+            if (ReferenceEquals(Account1, null) == false && ReferenceEquals(Account2, null) == false)
             {
                 decimal amount;
                 if (decimal.TryParse(add1.Text, out amount) && amount > 0)
                 {
                     try
                     {
-                        if (Account1.Transfer(amount, Account2))
-                        {
-                            MessageBox.Show("Перевод успешно выполнен.");
-                            TbVivod1.Text = Account1.BankOut(); 
-                            TbVivod2.Text = Account2.BankOut(); 
-                        }
-                        else
-                        {
-                            MessageBox.Show("Недостаточно средств для перевода.");
-                        }
+                        Account1 = Account1 - (amount, Account2);
+                        TbVivod1.Text = Account1.BankOut();
+                        TbVivod2.Text = Account2.BankOut();
                     }
                     catch (InvalidOperationException ex)
                     {
@@ -238,14 +231,14 @@ namespace BankClasses
 
         private void Add2_Click(object sender, RoutedEventArgs e)
         {
-            if (Account2 != null)
+            if (ReferenceEquals(Account2, null) == false)
             {
                 decimal amount;
                 if (decimal.TryParse(add2.Text, out amount))
                 {
                     try
                     {
-                        Account2.Deposit(amount);
+                        Account2 += amount;
                         TbVivod2.Text = Account2.BankOut();
                     }
                     catch (InvalidOperationException ex)
@@ -266,14 +259,14 @@ namespace BankClasses
 
         private void Sub2_Click(object sender, RoutedEventArgs e)
         {
-            if (Account2 != null)
+            if (ReferenceEquals(Account2, null) == false)
             {
                 decimal amount;
                 if (decimal.TryParse(add2.Text, out amount))
                 {
                     try
                     {
-                        Account2.Withdraw(amount);
+                        Account2 -= amount;
                         TbVivod2.Text = Account2.BankOut();
                     }
                     catch (InvalidOperationException ex)
@@ -294,7 +287,7 @@ namespace BankClasses
 
         private void Clear2_Click(object sender, RoutedEventArgs e)
         {
-            if (Account2 != null)
+            if (ReferenceEquals(Account2, null) == false)
             {
                 try
                 {
@@ -314,23 +307,16 @@ namespace BankClasses
 
         private void Trans2_Click(object sender, RoutedEventArgs e)
         {
-            if (Account1 != null && Account2 != null)
+            if (ReferenceEquals(Account1, null) == false && ReferenceEquals(Account2, null) == false)
             {
                 decimal amount;
                 if (decimal.TryParse(add2.Text, out amount) && amount > 0)
                 {
                     try
                     {
-                        if (Account2.Transfer(amount, Account1))
-                        {
-                            MessageBox.Show("Перевод успешно выполнен.");
-                            TbVivod1.Text = Account1.BankOut();
-                            TbVivod2.Text = Account2.BankOut();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Недостаточно средств для перевода.");
-                        }
+                        Account2 = Account2 - (amount, Account1);
+                        TbVivod1.Text = Account1.BankOut();
+                        TbVivod2.Text = Account2.BankOut();
                     }
                     catch (InvalidOperationException ex)
                     {
@@ -350,7 +336,7 @@ namespace BankClasses
 
         private void Close2_Click(object sender, RoutedEventArgs e)
         {
-            if (Account2 != null)
+            if (ReferenceEquals(Account2, null) == false)
             {
                 Account2.CloseStatus();
                 TbVivod2.Text = Account2.BankOut();
@@ -363,7 +349,7 @@ namespace BankClasses
 
         private void Close1_Click(object sender, RoutedEventArgs e)
         {
-            if (Account1 != null)
+            if (ReferenceEquals(Account1, null) == false)
             {
                 Account1.CloseStatus();
                 TbVivod1.Text = Account1.BankOut(); 
@@ -372,6 +358,20 @@ namespace BankClasses
             {
                 MessageBox.Show("Счет еще не создан.");
             }
+        }
+
+        private void equal_Click(object sender, RoutedEventArgs e)
+        {
+            
+                if (Account1 == Account2)
+                {
+                    MessageBox.Show("Балансы счетов равны");
+                }
+                else if (Account1 != Account2)
+                {
+                    MessageBox.Show("Балансы счетов неравны");
+                }
+            
         }
     }
 }
