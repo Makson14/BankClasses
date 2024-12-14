@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:BankClasses"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="600" MinWidth="900" Loaded="Window_Loaded" Background="LimeGreen">
-    <Grid>
+    <TabControl>
+        <TabItem Header="Данные о счетах">
+    <Grid Background="Aquamarine">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -23,34 +25,74 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Column="2" Grid.RowSpan="3" IsReadOnly="True" Name="TbVivod1" Margin="2px" FontSize="15px"></TextBox>
-        <TextBox Grid.Column="2" Grid.Row ="3" Grid.RowSpan="3"  IsReadOnly="True" Name="TbVivod2" Margin="2px" FontSize="15px"></TextBox>
-        <Label FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">Счёт 1</Label>
-        <Label FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">Счёт 2</Label>
-        <Label Grid.Row="1" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">Введите ФИО</Label>
-        <Label Grid.Row="3" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">Введите номер паспорта</Label>
-        <Label Grid.Row="5" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">Выберите дату рождения</Label>
-        <Label Grid.Row="6" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.ColumnSpan="2">Сумма изменения баланса/перевода</Label>
-        <TextBox Grid.Row="2" FontSize="25" Margin="2px" Name="FIOtb1"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" FontSize="25" Margin="2px" Name="FIOtb2" ></TextBox>
+                <ComboBox Grid.Row="1" Grid.Column="2" Height="45px" VerticalAlignment="Top" x:Name="boxChoice" SelectionChanged="boxChoice_SelectionChanged" Margin="5" Width="250px"></ComboBox>
+                <Button Grid.Row="7" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Reg1" Click="Reg1_Click">Открыть счёт</Button>
+                <Button Grid.Row="8" Grid.Column="2" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Close1" Click="Close1_Click">Закрыть счёт</Button>
+                <TextBox Grid.Column="2" Grid.RowSpan="4" IsReadOnly="True" Grid.Row="2" Name="TbVivodSchet" Margin="2px" FontSize="15px"></TextBox>
+                <TextBox Grid.Column="1" Grid.RowSpan="8" Grid.Row="1" IsReadOnly="True" Name="TbVivod1" Margin="5px" FontSize="15px" VerticalScrollBarVisibility="Auto"></TextBox>
+        <Label FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">Заполните данные счёта</Label>
+        <Label Grid.Row="1" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">Введите ФИО</Label>
+                <Label Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">Информация о счетах</Label>
+                <Label Grid.Row="0" Grid.Column="2" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">Выберите счёт</Label>
+                <Label Grid.Row="3" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom">Введите номер паспорта</Label>
+                <Label Grid.Row="5" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Bottom" >Выберите дату рождения</Label>
+                <TextBox Grid.Row="2" FontSize="25" Margin="2px" Name="FIOtb1"></TextBox>
         <TextBox Grid.Row="4" FontSize="25" Margin="2px" Name="PASStb1"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" FontSize="25" Margin="2px" Name="PASStb2"></TextBox>
-        <TextBox Grid.Row="7" FontSize="20px" Margin="10px" Name="add1" ></TextBox>
-        <TextBox Grid.Row="7" Grid.Column="1" FontSize="20px" Margin="10px" Name="add2"></TextBox>
-        <DatePicker Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Name="datarojd1" Language="ru-RU" Grid.Row="6"/>
-        <DatePicker Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Name="datarojd2" Language="ru-RU" Grid.Column="1" Grid.Row="6"/>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Left" VerticalAlignment="Top" Name="Add1" Click="Add1_Click">Пополнить</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="Sub1" Click="Sub1_Click">Снять</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Right" VerticalAlignment="Top" Name="Clear1" Click="Clear1_Click">Обнулить</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Right" VerticalAlignment="Bottom" Name="Trans1" Click="Trans1_Click">Перевести</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Center" VerticalAlignment="Top" Name="Reg1" Click="Reg1_Click">Открыть счёт</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Close1" Click="Close1_Click">Закрыть счёт</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Grid.Column="1" Height="30px" HorizontalAlignment="Left" VerticalAlignment="Top" Name="Add2" Click="Add2_Click">Пополнить</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Name="Sub2" Click="Sub2_Click">Снять</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Name="Clear2" Click="Clear2_Click">Обнулить</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Name="Trans2" Click="Trans2_Click">Перевести</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Name="Open2" Click="Open2_Click">Открыть счёт</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Name="Close2" Click="Close2_Click">Закрыть счёт</Button>
-        <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="equal" Click="equal_Click">Сравнить счета</Button>
-    </Grid>
+        
+                <DatePicker Width="150" HorizontalAlignment="Center" VerticalAlignment="Top" Name="datarojd1" Language="ru-RU" Grid.Row="6"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Операции со счетами">
+            <Grid Background="BlanchedAlmond">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center">Выберите счёт 1</Label>
+                <ComboBox Grid.Row="1" x:Name="Combo1" Height="45px" VerticalAlignment="Top" Margin="5" Width="300px" SelectionChanged="Combo1_SelectionChanged"></ComboBox>
+                <TextBox Grid.Row="2" Grid.RowSpan="2" Name="transAcc1" Margin="5"  Width="325px" FontSize="15px" IsReadOnly="True"></TextBox>
+                <Label Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center">Выберите счёт 2</Label>
+                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="Combo2" Height="45px" VerticalAlignment="Top" Margin="5" Width="300px" SelectionChanged="Combo2_SelectionChanged"></ComboBox>
+                <TextBox Grid.Row="7" FontSize="15px" Margin="10px" Name="add1" Grid.Column="1" Height="50px" VerticalAlignment="Top" ></TextBox>
+                <Label Grid.Row="6" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15px" >Сумма изменения баланса счета 1/перевода</Label>
+                <TextBox Grid.Row="2" Grid.RowSpan="2" Name="transAcc2" Margin="5" Grid.Column="1"  Width="325px" FontSize="15px" IsReadOnly="True"></TextBox>
+                <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Bottom" Name="Add1" Click="Add1_Click">Пополнить</Button>
+                <Button Grid.Row="8" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Bottom" Name="Sub1" Click="Sub1_Click">Снять</Button>
+                <Button Grid.Row="8" Grid.Column="1" FontSize="15px" Width="100px" Height="30px" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Bottom" Name="Clear1" Click="Clear1_Click">Обнулить</Button>
+                <Button Grid.Row="8" FontSize="15px" Grid.Column="1" Width="100px" Margin="5" Height="30px" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Name="Trans1" Click="Trans1_Click">Перевести</Button>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Список всех транзакций">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Список всех операций</Label>
+                <Label Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Выберите нужную операцию</Label>
+                <TextBox Grid.Row="1" Grid.RowSpan="5" Name="TransacAll" Margin="5" VerticalScrollBarVisibility="Auto"  Width="325px" FontSize="15px" IsReadOnly="True"></TextBox>
+                <TextBox Grid.Row="2" Grid.RowSpan="4" Grid.Column="1" Name="TransacAllChoice" Margin="5" VerticalScrollBarVisibility="Auto"  Width="325px" FontSize="15px" IsReadOnly="True" ></TextBox>
+                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="TransChoice" Height="45px" VerticalAlignment="Center" Margin="5" Width="300px" SelectionChanged="TransChoice_SelectionChanged">
+                    <ComboBoxItem>Пополнение</ComboBoxItem>
+                    <ComboBoxItem>Снятие</ComboBoxItem>
+                    <ComboBoxItem>Перевод</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>
