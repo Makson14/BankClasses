@@ -1,21 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BankClasses.Classes
 {
-
+    [Serializable]
     public class BankAccount
     {
-        public bool IsClosed { get; private set; }
+        //[DataMember]
+        public bool IsClosed { get; set; }
+        //[DataMember]
         public string AccountNumber { get; set; }
+        //[DataMember]
         public DateTime OpenDate { get; set; }
+        //[DataMember]
         public Client AccountHolder { get; set; }
-        public decimal Balance { get; private set; }
+        //[DataMember]
+        public decimal Balance { get; set; }
+        //[DataMember]
         public DateTime DepositTerm { get; set; }
-        public string Status { get; private set; }
+        //[DataMember]
+        public string Status { get;  set; }
 
         public BankAccount(string accountNumber, DateTime openDate, Client accountHolder, decimal initialBalance, DateTime depositTerm)
         {
@@ -84,7 +93,7 @@ namespace BankClasses.Classes
         }
         public static bool operator ==(BankAccount account, object obj)
         {
-            // Если один из объектов null, проверяем другой
+            
             if (ReferenceEquals(account, null))
                 return ReferenceEquals(obj, null);
 

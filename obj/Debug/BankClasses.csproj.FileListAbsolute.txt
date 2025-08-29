@@ -13,3 +13,6 @@ D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.csproj.GenerateResour
 D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.csproj.CoreCompileInputs.cache
 D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.exe
 D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.pdb
+D:\Projects\Сишарп\BankClasses\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\Сишарп\BankClasses\bin\Debug\Newtonsoft.Json.xml
+D:\Projects\Сишарп\BankClasses\obj\Debug\BankClasses.csproj.CopyComplete

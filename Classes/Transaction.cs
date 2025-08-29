@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
 
 namespace BankClasses.Classes
 {
+    [Serializable]
     public class Transaction
     {
-        public string OperationType { get; set; } 
+       // [DataMember]
+        public string OperationType { get; set; }
+        //[DataMember]
         public string AccountNumber { get; set; }
+       // [DataMember]
         public string AccountNumberTwo { get; set; }
+       // [DataMember]    
         public DateTime OperationTime { get; set; }
+       // [DataMember]
         public decimal kolvo { get; set; }
         public Transaction(string operationType, string accountNumber, decimal Amount)
         {
